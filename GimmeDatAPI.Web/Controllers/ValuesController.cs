@@ -16,6 +16,11 @@ namespace GimmeDatAPI.Web.Controllers
             return new string[] {"value1", "value2"};
         }
 
+        /// <summary>
+        /// Test xml docs
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // GET api/values/5
         [HttpGet("{id}")]
         public string Get(int id)
