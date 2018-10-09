@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GimmeDatAPI.Configuration;
+using GimmeDatAPI.PlainOldClrObjects;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Rewrite;
@@ -28,6 +29,8 @@ namespace GimmeDatAPI.Web
             services.AddMvc();
             
             SwaggerConfiguration.RegisterService(services);
+            CorsConfiguration.Register(services,
+                Configuration.GetSection(nameof(CorsConfigurationValues)).Get<CorsConfigurationValues>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,6 +40,8 @@ namespace GimmeDatAPI.Web
             {
                 applicationBuilder.UseDeveloperExceptionPage();
             }
+            
+            applicationBuilder.UseCors(CorsConfiguration.CorsPolicyName);
             
             var option = new RewriteOptions();
             option.AddRedirect("^$", "swagger");
