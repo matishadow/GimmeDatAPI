@@ -2,7 +2,7 @@
 
 namespace GimmeDatAPI.PlainOldClrObjects
 {
-    public class ZaścianekData
+    public class ZascianekData
     {
         public DateTime CurrentDateTime { get; set; }
         public DateTime MenuDate { get; set; }

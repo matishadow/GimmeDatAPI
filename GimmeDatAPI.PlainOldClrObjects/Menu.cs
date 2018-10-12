@@ -4,8 +4,8 @@ namespace GimmeDatAPI.PlainOldClrObjects
 {
     public class Menu
     {
-        public string Soup { get; set; }
-        public string DeluxeMeal { get; set; }
+        public IEnumerable<string> Soups { get; set; }
+        public IEnumerable<string> DeluxeMeals { get; set; }
         
         public IEnumerable<string> MealsOfTheDay { get; set; }
     }
