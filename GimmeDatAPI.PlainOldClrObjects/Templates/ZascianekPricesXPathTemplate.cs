@@ -1,6 +1,6 @@
 namespace GimmeDatAPI.PlainOldClrObjects.Templates
 {
-    public class ZascianekPricesXPathTemplate
+    public class ZascianekPricesXPathTemplate 
     {
         public XPathElement SoupPrice = new XPathElement()
         {
