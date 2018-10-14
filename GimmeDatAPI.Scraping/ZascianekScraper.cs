@@ -8,7 +8,7 @@ using HtmlAgilityPack;
 
 namespace GimmeDatAPI.Scraping
 {
-    public class ZascianekScraper
+    public class ZascianekScraper : IZascianekScraper
     {
         private const string ZascianekUrl = "https://kuchniazasciana.pl/dzisiejsze-menu";
         private const string ZascianekDateTimeFormat = "dd.MM.yyyy";
@@ -16,14 +16,17 @@ namespace GimmeDatAPI.Scraping
         
         private readonly IEnumerable<string> zascianekTags = new[] {"Vege", "Vegan"};
         private readonly IWebDocumentDownloader webDocumentDownloader;
-        private readonly IHtmlNodeConverter htmlNodeConverter;
+        protected readonly IHtmlNodeConverter HtmlNodeConverter;
         private readonly ZascianekXPathTemplate zascianekXPathTemplate;
 
-        public ZascianekScraper(IWebDocumentDownloader webDocumentDownloader, IHtmlNodeConverter htmlNodeConverter)
+        protected HtmlDocument ZascianekWebDocument;
+
+        public ZascianekScraper(IWebDocumentDownloader webDocumentDownloader, IHtmlNodeConverter htmlNodeConverter,
+            ZascianekXPathTemplate zascianekXPathTemplate)
         {
             this.webDocumentDownloader = webDocumentDownloader;
-            this.htmlNodeConverter = htmlNodeConverter;
-            this.zascianekXPathTemplate = new ZascianekXPathTemplate();
+            HtmlNodeConverter = htmlNodeConverter;
+            this.zascianekXPathTemplate = zascianekXPathTemplate;
         }
 
         private IList<string> RemoveTagsFromCollection(IEnumerable<string> collection)
@@ -38,21 +41,27 @@ namespace GimmeDatAPI.Scraping
             zascianekData.Menu.DeluxeMeals = RemoveTagsFromCollection(zascianekData.Menu.DeluxeMeals);
         }
 
-        public async Task<ZascianekData> ScrapeZascianekData()
+        protected async Task TryFillUpZascianekWebDocument()
+        {
+            if (ZascianekWebDocument == null)
+                ZascianekWebDocument = await webDocumentDownloader.DownloadWebDocument(ZascianekUrl);
+        }
+
+        public virtual async Task<ZascianekData> ScrapeZascianekData()
         {
             var zascianekData = new ZascianekData();
 
-            HtmlDocument webDocument = await webDocumentDownloader.DownloadWebDocument(ZascianekUrl);
-            
+            await TryFillUpZascianekWebDocument();
+
             zascianekData.MenuDate =
-                htmlNodeConverter.ConvertToDateTime(webDocument,
+                HtmlNodeConverter.ConvertToDateTime(ZascianekWebDocument,
                     zascianekXPathTemplate.MenuDate.XPathString, ZascianekDateTimeFormat);
 
-            IEnumerable<string> soups = htmlNodeConverter.ConvertToStrings(webDocument,
+            IEnumerable<string> soups = HtmlNodeConverter.ConvertToStrings(ZascianekWebDocument,
                 zascianekXPathTemplate.Soups.XPathString);
-            IEnumerable<string> mealsOfTheDay = htmlNodeConverter.ConvertToStrings(webDocument,
+            IEnumerable<string> mealsOfTheDay = HtmlNodeConverter.ConvertToStrings(ZascianekWebDocument,
                 zascianekXPathTemplate.MealsOfTheDay.XPathString);
-            IEnumerable<string> deluxeMeals = htmlNodeConverter.ConvertToStrings(webDocument,
+            IEnumerable<string> deluxeMeals = HtmlNodeConverter.ConvertToStrings(ZascianekWebDocument,
                 zascianekXPathTemplate.DeluxeMeals.XPathString);
             
             zascianekData.Menu = new Menu

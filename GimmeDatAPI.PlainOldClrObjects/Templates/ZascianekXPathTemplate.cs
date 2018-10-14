@@ -15,19 +15,19 @@ namespace GimmeDatAPI.PlainOldClrObjects.Templates
         {
             Name = nameof(Soups),
             Type = typeof(Array).ToString(),
-            XPathString = "/html/body/main/div/div/div[3]/div[1]/div[2]/div[1]"
+            XPathString = "/html/body/main/div/div/div[3]/div/div[1]/div[3]/div[1]"
         };
         public XPathElement MealsOfTheDay = new XPathElement()
         {
             Name = nameof(MealsOfTheDay),
             Type = typeof(Array).ToString(),
-            XPathString = "/html/body/main/div/div/div[3]/div[1]/div[2]/div[2]"
+            XPathString = "/html/body/main/div/div/div[3]/div/div[1]/div[3]/div[2]"
         };
         public XPathElement DeluxeMeals = new XPathElement()
         {
             Name = nameof(DeluxeMeals),
             Type = typeof(Array).ToString(),
-            XPathString = "/html/body/main/div/div/div[3]/div[1]/div[2]/div[3]"
+            XPathString = "/html/body/main/div/div/div[3]/div/div[1]/div[3]/div[3]"
         };
     }
 }
