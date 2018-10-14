@@ -1,7 +1,8 @@
 namespace GimmeDatAPI.PlainOldClrObjects
 {
-    public class ZascianekDataWithPrices : ZascianekData
+    public class ZascianekDataWithPrices 
     {
-        private MenuPrices MenuPrices { get; set; }
+        public MenuPrices MenuPrices { get; set; }
+        public ZascianekData ZascianekData { get; set; }
     }
 }
