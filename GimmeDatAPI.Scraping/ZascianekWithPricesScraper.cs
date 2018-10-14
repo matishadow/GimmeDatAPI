@@ -7,13 +7,12 @@ namespace GimmeDatAPI.Scraping
     public class ZascianekWithPricesScraper : ZascianekScraper, IZascianekWithPricesScraper
     {
         private readonly ZascianekPricesXPathTemplate zascianekPricesXPathTemplate;
-
+        
         public ZascianekWithPricesScraper(IWebDocumentDownloader webDocumentDownloader,
-            IHtmlNodeConverter htmlNodeConverter, ZascianekXPathTemplate zascianekXPathTemplate,
-            ZascianekPricesXPathTemplate zascianekPricesXPathTemplate) : base(
-            webDocumentDownloader, htmlNodeConverter, zascianekXPathTemplate)
+            IHtmlNodeConverter htmlNodeConverter) : base(
+            webDocumentDownloader, htmlNodeConverter)
         {
-            this.zascianekPricesXPathTemplate = zascianekPricesXPathTemplate;
+            this.zascianekPricesXPathTemplate = new ZascianekPricesXPathTemplate();
         }
 
         public async Task<ZascianekDataWithPrices> ScrapeZascianekWithPricesData()

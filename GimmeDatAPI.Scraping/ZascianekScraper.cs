@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GimmeDatAPI.Configuration.InversionOfControl.RegistrationRelated;
+using GimmeDatAPI.Configuration.InversionOfControl.ScopeRelated;
 using GimmeDatAPI.PlainOldClrObjects;
 using GimmeDatAPI.PlainOldClrObjects.Templates;
 using HtmlAgilityPack;
 
 namespace GimmeDatAPI.Scraping
 {
-    public class ZascianekScraper : IZascianekScraper
+    public class ZascianekScraper : IZascianekScraper, 
+        IInstancePerLifetimeScopeDependency, IAsImplementedInterfacesDependency
     {
         private const string ZascianekUrl = "https://kuchniazasciana.pl/dzisiejsze-menu";
         private const string ZascianekDateTimeFormat = "dd.MM.yyyy";
@@ -21,12 +24,11 @@ namespace GimmeDatAPI.Scraping
 
         protected HtmlDocument ZascianekWebDocument;
 
-        public ZascianekScraper(IWebDocumentDownloader webDocumentDownloader, IHtmlNodeConverter htmlNodeConverter,
-            ZascianekXPathTemplate zascianekXPathTemplate)
+        public ZascianekScraper(IWebDocumentDownloader webDocumentDownloader, IHtmlNodeConverter htmlNodeConverter)
         {
             this.webDocumentDownloader = webDocumentDownloader;
             HtmlNodeConverter = htmlNodeConverter;
-            this.zascianekXPathTemplate = zascianekXPathTemplate;
+            zascianekXPathTemplate = new ZascianekXPathTemplate();
         }
 
         private IList<string> RemoveTagsFromCollection(IEnumerable<string> collection)
