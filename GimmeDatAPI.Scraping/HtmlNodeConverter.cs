@@ -34,9 +34,9 @@ namespace GimmeDatAPI.Scraping
             HtmlNodeCollection collectionNode = htmlDocument.DocumentNode.SelectNodes(xpath + CollectionXPath);
 
             IEnumerable<string> convertedStrings =
-                collectionNode
-                    .Where(node => !string.IsNullOrWhiteSpace(node.InnerText))
-                    .Select(node => node.InnerText.Trim())
+                collectionNode?
+                    .Where(node => !string.IsNullOrWhiteSpace(node.InnerText))?
+                    .Select(node => node.InnerText.Trim())?
                     .ToList();
 
             return convertedStrings;

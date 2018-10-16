@@ -68,9 +68,9 @@ namespace GimmeDatAPI.Scraping
             
             zascianekData.Menu = new Menu
             {
-                Soups = soups.Skip(ZascianekColumnOffset).ToList(),
-                MealsOfTheDay = mealsOfTheDay.Skip(ZascianekColumnOffset).ToList(),
-                DeluxeMeals = deluxeMeals.Skip(ZascianekColumnOffset).ToList(),
+                Soups = soups?.Skip(ZascianekColumnOffset)?.ToList(),
+                MealsOfTheDay = mealsOfTheDay?.Skip(ZascianekColumnOffset)?.ToList(),
+                DeluxeMeals = deluxeMeals?.Skip(ZascianekColumnOffset)?.ToList(),
             };
             
             RemoveTagsFromZascianekData(zascianekData);
