@@ -24,5 +24,6 @@
   <ItemGroup>
     <ProjectReference Include="..\GimmeDatAPI.Configuration\GimmeDatAPI.Configuration.csproj" />
     <ProjectReference Include="..\GimmeDatAPI.PlainOldClrObjects\GimmeDatAPI.PlainOldClrObjects.csproj" />
+    <ProjectReference Include="..\GimmeDatAPI.Scraping\GimmeDatAPI.Scraping.csproj" />
   </ItemGroup>
 </Project>

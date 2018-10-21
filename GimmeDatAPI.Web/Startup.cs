@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using GimmeDatAPI.Configuration;
+using GimmeDatAPI.Configuration.InversionOfControl;
 using GimmeDatAPI.PlainOldClrObjects;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,6 +34,17 @@ namespace GimmeDatAPI.Web
             SwaggerConfiguration.RegisterService(services);
             CorsConfiguration.Register(services,
                 Configuration.GetSection(nameof(CorsConfigurationValues)).Get<CorsConfigurationValues>());
+            
+            var containerBuilder = new ContainerBuilder();
+            containerBuilder.Populate(services);
+            InversionOfControlConfiguration.Register(containerBuilder);
+            IContainer container = containerBuilder.Build();
+            var serviceProvider = new AutofacServiceProvider(container);
+        }
+        
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            InversionOfControlConfiguration.Register(builder);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

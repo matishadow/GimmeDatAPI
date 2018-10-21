@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GimmeDatAPI.Configuration.InversionOfControl.RegistrationRelated;
+using GimmeDatAPI.Configuration.InversionOfControl.ScopeRelated;
 using HtmlAgilityPack;
 
 namespace GimmeDatAPI.Scraping
 {
-    public class HtmlNodeConverter : IHtmlNodeConverter
+    public class HtmlNodeConverter : IHtmlNodeConverter,
+        IInstancePerLifetimeScopeDependency, IAsImplementedInterfacesDependency
     {
         private const string CollectionXPath = "//text()[normalize-space(.) != '']";
         
@@ -31,9 +34,9 @@ namespace GimmeDatAPI.Scraping
             HtmlNodeCollection collectionNode = htmlDocument.DocumentNode.SelectNodes(xpath + CollectionXPath);
 
             IEnumerable<string> convertedStrings =
-                collectionNode
-                    .Where(node => !string.IsNullOrWhiteSpace(node.InnerText))
-                    .Select(node => node.InnerText.Trim())
+                collectionNode?
+                    .Where(node => !string.IsNullOrWhiteSpace(node.InnerText))?
+                    .Select(node => node.InnerText.Trim())?
                     .ToList();
 
             return convertedStrings;

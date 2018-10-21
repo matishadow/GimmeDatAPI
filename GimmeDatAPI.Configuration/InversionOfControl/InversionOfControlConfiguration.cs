@@ -10,7 +10,7 @@ using IContainer = System.ComponentModel.IContainer;
 
 namespace GimmeDatAPI.Configuration.InversionOfControl
 {
-    internal static class InversionOfControlConfiguration
+    public static class InversionOfControlConfiguration
     {
         private const string ApplicationName = "GimmeDat";
         
