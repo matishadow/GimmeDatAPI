@@ -1,4 +1,4 @@
-﻿namespace GimmeDatAPI.PlainOldClrObjects
+﻿namespace GimmeDatAPI.Configuration
 {
     public class CorsConfigurationValues
     {

@@ -1,5 +1,4 @@
-﻿using GimmeDatAPI.PlainOldClrObjects;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace GimmeDatAPI.Configuration
 {
