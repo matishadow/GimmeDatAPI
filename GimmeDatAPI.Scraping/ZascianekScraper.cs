@@ -20,7 +20,6 @@ namespace GimmeDatAPI.Scraping
         private readonly IEnumerable<string> zascianekTags = new[] {"Vege", "Vegan"};
         private readonly IWebDocumentDownloader webDocumentDownloader;
         protected readonly IHtmlNodeConverter HtmlNodeConverter;
-        private readonly ZascianekXPathTemplate zascianekXPathTemplate;
 
         protected HtmlDocument ZascianekWebDocument;
 
@@ -28,12 +27,11 @@ namespace GimmeDatAPI.Scraping
         {
             this.webDocumentDownloader = webDocumentDownloader;
             HtmlNodeConverter = htmlNodeConverter;
-            zascianekXPathTemplate = new ZascianekXPathTemplate();
         }
 
-        private IList<string> RemoveTagsFromCollection(IEnumerable<string> collection)
+        private IEnumerable<string> RemoveTagsFromCollection(IEnumerable<string> collection)
         {
-            return collection.Where(s => !zascianekTags.Contains(s)).ToList();
+            return collection?.Where(s => !zascianekTags.Contains(s)).ToList();
         }
 
         private void RemoveTagsFromZascianekData(ZascianekData zascianekData)
@@ -49,7 +47,7 @@ namespace GimmeDatAPI.Scraping
                 ZascianekWebDocument = await webDocumentDownloader.DownloadWebDocument(ZascianekUrl);
         }
 
-        public virtual async Task<ZascianekData> ScrapeZascianekData()
+        public virtual async Task<ZascianekData> ScrapeZascianekData(ZascianekXPathTemplate zascianekXPathTemplate)
         {
             var zascianekData = new ZascianekData();
 

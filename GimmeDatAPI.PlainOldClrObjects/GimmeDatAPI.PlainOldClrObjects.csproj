@@ -2,4 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GimmeDatAPI.Configuration\GimmeDatAPI.Configuration.csproj" />
+  </ItemGroup>
 </Project>

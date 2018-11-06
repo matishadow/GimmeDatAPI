@@ -15,11 +15,11 @@ namespace GimmeDatAPI.Scraping
             this.zascianekPricesXPathTemplate = new ZascianekPricesXPathTemplate();
         }
 
-        public async Task<ZascianekDataWithPrices> ScrapeZascianekWithPricesData()
+        public async Task<ZascianekDataWithPrices> ScrapeZascianekWithPricesData(ZascianekXPathTemplate zascianekXPathTemplate)
         {
             var zascianekDataWithPrices = new ZascianekDataWithPrices()
             {
-                ZascianekData = await ScrapeZascianekData()
+                ZascianekData = await ScrapeZascianekData(zascianekXPathTemplate)
             };
             
             await TryFillUpZascianekWebDocument();
