@@ -1,4 +1,7 @@
+using System;
 using System.Threading.Tasks;
+using FluentCache;
+using GimmeDatAPI.Cache;
 using GimmeDatAPI.PlainOldClrObjects;
 using GimmeDatAPI.PlainOldClrObjects.Templates;
 using GimmeDatAPI.Scraping;
@@ -11,19 +14,28 @@ namespace GimmeDatAPI.Web.Controllers
     {
         private readonly IZascianekMultipleTemplateScraper zascianekScraper;
         private readonly ZascianekXPathTemplates zascianekXPathTemplates;
+        private readonly ICacheInvalidation cacheInvalidation;
+        private readonly IGimmeDatCache gimmeDatCache;
 
         public ZascianekDataController(IZascianekMultipleTemplateScraper zascianekScraper,
-            ZascianekXPathTemplates zascianekXPathTemplates)
+            ZascianekXPathTemplates zascianekXPathTemplates, ICacheInvalidation cacheInvalidation,
+            IGimmeDatCache gimmeDatCache)
         {
             this.zascianekScraper = zascianekScraper;
             this.zascianekXPathTemplates = zascianekXPathTemplates;
+            this.cacheInvalidation = cacheInvalidation;
+            this.gimmeDatCache = gimmeDatCache;
         }
 
         [HttpGet]
         public async Task<ZascianekData> Get()
         {
-            ZascianekData zascianekData = await zascianekScraper.ScrapeZascianekData(zascianekXPathTemplates.Templates);
+            Cache<IZascianekMultipleTemplateScraper> scraperCache = gimmeDatCache.GetCacheWrapper(zascianekScraper);
 
+            ZascianekData zascianekData = await scraperCache
+                .Method(scraper => scraper.ScrapeZascianekData(zascianekXPathTemplates.Templates))
+                .ExpireAfter(cacheInvalidation.GetZascianekExpireAfter()).GetValueAsync();
+            
             return zascianekData;
         }
     }
