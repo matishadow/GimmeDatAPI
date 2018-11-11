@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GimmeDatAPI.Configuration",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GimmeDatAPI.Scraping", "GimmeDatAPI.Scraping\GimmeDatAPI.Scraping.csproj", "{0999E1E4-A5F8-4F25-8AC5-6B32265090CA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GimmeDatAPI.Cache", "GimmeDatAPI.Cache\GimmeDatAPI.Cache.csproj", "{EB551BB4-EE6E-4911-B11F-D94821EA2D2C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{0999E1E4-A5F8-4F25-8AC5-6B32265090CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0999E1E4-A5F8-4F25-8AC5-6B32265090CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0999E1E4-A5F8-4F25-8AC5-6B32265090CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB551BB4-EE6E-4911-B11F-D94821EA2D2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB551BB4-EE6E-4911-B11F-D94821EA2D2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB551BB4-EE6E-4911-B11F-D94821EA2D2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB551BB4-EE6E-4911-B11F-D94821EA2D2C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

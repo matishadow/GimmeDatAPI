@@ -22,6 +22,7 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GimmeDatAPI.Cache\GimmeDatAPI.Cache.csproj" />
     <ProjectReference Include="..\GimmeDatAPI.Configuration\GimmeDatAPI.Configuration.csproj" />
     <ProjectReference Include="..\GimmeDatAPI.PlainOldClrObjects\GimmeDatAPI.PlainOldClrObjects.csproj" />
     <ProjectReference Include="..\GimmeDatAPI.Scraping\GimmeDatAPI.Scraping.csproj" />
